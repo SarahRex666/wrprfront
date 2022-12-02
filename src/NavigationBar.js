@@ -5,7 +5,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import React from 'react';
 import { Link } from "react-router-dom";
 
-function NavigationBar(){
+function NavigationBar(currentUser){
+
     return(
     <Navbar bg="light" expand="lg">
       <Container>

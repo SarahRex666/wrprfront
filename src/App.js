@@ -5,11 +5,34 @@ import Home from './Home';
 import About from './About';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import { UserContext } from './UserContext';
+import React, { useState, useMemo, createContext, useContext, useEffect, useCallback } from "react";
+
 
 
 
 export default function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
+
+  const providerValue = useMemo(() => ({currentUser, setCurrentUser}), [currentUser, setCurrentUser])
+
+  console.log(currentUser)
+
+    useEffect(() => {
+    fetch("http://localhost:3000/me", {
+      withCredentials: "include",
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => {
+          setAuthChecked(true);
+        });
+      } else setAuthChecked(true);
+    });
+  }, []);
+
   return (
+    <UserContext.Provider value={providerValue}>
     <BrowserRouter>
     <nav>
     <NavigationBar />
@@ -22,7 +45,7 @@ export default function App() {
         <Route path="/SignUp" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
-
+    </UserContext.Provider>
   );
 }
 
