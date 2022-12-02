@@ -22,8 +22,8 @@ function NavigationBar(currentUser){
                 Sign Up
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/">
-                Forgot Password?
+              <NavDropdown.Item href="/logout">
+                Logout
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>

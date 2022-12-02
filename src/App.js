@@ -5,6 +5,7 @@ import Home from './Home';
 import About from './About';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import Logout from './Logout';
 import { UserContext } from './UserContext';
 import React, { useState, useMemo, createContext, useContext, useEffect, useCallback } from "react";
 
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/About" element={<About />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Logout" element={<Logout />} />
       </Routes>
     </BrowserRouter>
     </UserContext.Provider>
