@@ -3,27 +3,33 @@ import { UserContext, UserDispatchContext } from './UserContext';
 import GiftCard from "./GiftCard";
 import { Button, Card } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import NewGift from "./NewGift";
 
-export default function NewRecipient(){
+export default function NewGift(recipient){
     const currentUser = useContext(UserContext)
     const setCurrentUser = useContext(UserDispatchContext)
     const [formState, setFormState] = useState({
         name: "",
-        relationship: "",
+        description: "",
+        photo_url: "",
+        bought: false,
+        made: false,
+        wrapped: false,
+        price: "",
         priority: "",
+        recipient_id: recipient.recipient.id,
         user_id: currentUser.id
     })
 
-    const newUserInfo = () => {
-        fetch("http://localhost:3000/me", {
-            withCredentials: "include",
-        }).then((res) => setCurrentUser(res))
-    }
+    const handleChange = (e) => {
+        setFormState({
+      ...formState,
+      [e.target.id]: e.target.value,
+    });
+  };
 
-    const handleSubmit = (e) => {
+      const handleSubmit = (e) => {
         e.preventDefault()
-        fetch("http://localhost:3000/recipients", {
+        fetch("http://localhost:3000/gifts", {
             method: "POST",
             withCredentials: "include",
             headers: {
@@ -33,15 +39,8 @@ export default function NewRecipient(){
         })
     }
 
-      const handleChange = (e) => {
-    setFormState({
-      ...formState,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-    return (
-        <div>
+    return <div>
+         <div>
         <Form className="container" onSubmit={handleSubmit}>
             <Form.Group>
                 <Form.Control 
@@ -52,11 +51,24 @@ export default function NewRecipient(){
                 onChange={handleChange}>
                 </Form.Control>
                 <Form.Control 
+                type="text"
+                id="description" 
+                placeholder="Description" 
+                value={formState.description}
+                onChange={handleChange}>
+                </Form.Control>
+                <Form.Control 
                 type="text" 
-                id="relationship"
-                value={formState.relationship}
+                id="photo_url"
+                value={formState.photo_url}
                 onChange={handleChange}
-                placeholder="Relationship"></Form.Control>
+                placeholder="Photo URL"></Form.Control>
+                <Form.Control 
+                type="text" 
+                id="price"
+                value={formState.price}
+                onChange={handleChange}
+                placeholder="Price"></Form.Control>
                 <Form.Label>Priority:</Form.Label>
                 <Form.Select
                 value={formState.priority}
@@ -69,8 +81,8 @@ export default function NewRecipient(){
                     <option value="5">5</option>
                 </Form.Select>
             </Form.Group>
-            <Button type="submit" id="submit" value="submit">Add New Recipient</Button>
+            <Button type="submit" id="submit" value="submit">Add New Gift</Button>
         </Form>
         </div>
-    )
+    </div>
 }
