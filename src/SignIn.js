@@ -33,8 +33,9 @@ export default function SignIn(){
       },
       body: JSON.stringify(formState),
     })
-      .then((r) => r.json()).then((r) => setCurrentUser(r))
-      .then(navigate("/"))
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.id) setCurrentUser(r)}).then(navigate("/home"))
   };
 
 

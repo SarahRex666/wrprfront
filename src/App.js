@@ -13,6 +13,27 @@ import { UserProvider, UserContext, UserDispatchContext } from './UserContext';
 
 
 export default function App() {
+  const setCurrentUser = useContext(UserDispatchContext)
+    const [authChecked, setAuthChecked] = useState(false);
+
+
+
+  useEffect(() => {
+    fetch("http://localhost:3000/me", {
+      withCredentials: "include",
+    }).then((res) => {
+      if (res.id) {
+        res.json().then((user) => {
+          setCurrentUser(user);
+          setAuthChecked(true);
+        });
+      } else setAuthChecked(true);
+    });
+  }, []);
+
+    if (!authChecked) {
+    return <div> </div>;
+    }
 
   return (
     <UserProvider>
