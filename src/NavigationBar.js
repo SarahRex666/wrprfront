@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from './UserContext';
 
 function NavigationBar(){
-    const { currentUser, setCurrentUser } = useContext(UserContext)
+    const currentUser = useContext(UserContext)
 
     if (currentUser && currentUser.id){
       return(

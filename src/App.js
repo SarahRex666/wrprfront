@@ -8,35 +8,14 @@ import SignUp from './SignUp';
 import Logout from './Logout';
 import Profile from './Profile';
 import Gifts from './Gifts';
-import { UserContext } from './UserContext';
 import React, { useState, useMemo, createContext, useContext, useEffect, useCallback } from "react";
-
-
+import { UserProvider, UserContext, UserDispatchContext } from './UserContext';
 
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState([]);
-  const [authChecked, setAuthChecked] = useState(false);
-
-  const providerValue = useMemo(() => ({currentUser, setCurrentUser}), [currentUser, setCurrentUser])
-
-  console.log(currentUser)
-
-    useEffect(() => {
-    fetch("http://localhost:3000/me", {
-      withCredentials: "include",
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => {
-          setAuthChecked(true);
-          setCurrentUser(user)
-        });
-      } else setAuthChecked(true);
-    });
-  }, []);
 
   return (
-    <UserContext.Provider value={providerValue}>
+    <UserProvider>
     <BrowserRouter>
     <nav>
     <NavigationBar />
@@ -52,7 +31,7 @@ export default function App() {
         <Route path="/Profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
-    </UserContext.Provider>
+    </UserProvider>
   );
 }
 

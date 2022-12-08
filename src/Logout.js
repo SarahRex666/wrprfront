@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "./UserContext";
+import { UserContext, UserDispatchContext } from './UserContext';
 
 function Logout() {
-    const { currentUser, setCurrentUser } = useContext(UserContext)
+    const currentUser = useContext(UserContext)
+    const setCurrentUser = useContext(UserDispatchContext)
     const navigate = useNavigate();
 
     useEffect(() => {

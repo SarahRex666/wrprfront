@@ -1,23 +1,17 @@
 import React, { useState, useMemo, createContext, useContext, useEffect, useCallback } from "react";
-import { UserContext } from "./UserContext";
+import { UserContext } from './UserContext';
+import GiftCard from "./GiftCard";
+import { Button,Card,Form } from "react-bootstrap";
+import NewRecipient from "./NewRecipient";
 
 export default function Gifts(){
-    const { currentUser, setCurrentUser } = useContext(UserContext)
+    const currentUser = useContext(UserContext)
 
-    return(<div>{currentUser.recipients.map((recipient) => (
-        <div key={recipient.id}>
-    <h1>{recipient.name}</h1>
-    <p>{recipient.relationship}</p>
-    {recipient.gifts.map((gift) => (
-        <div key={gift.id}>
-            <p>{gift.name}</p>
-            <p>{gift.price}$</p>
-            <p>Bought: {gift.bought.toString()}</p>
-            <p>Wrapped: {gift.wrapped.toString()}</p>
-            <p>Made: {gift.made.toString()}</p>
-            </div>
-    ))}
-    </div>
-    ))}
-    </div>)
+    return (
+        <div>
+            <NewRecipient />
+            <GiftCard />
+        </div>
+    )
+
 }

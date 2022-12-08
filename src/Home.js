@@ -1,10 +1,10 @@
 import userEvent from "@testing-library/user-event";
 import React, {useContext} from "react";
-import { UserContext } from "./UserContext";
+import { UserContext } from './UserContext';
 
 
 export default function Home(){
-    const { currentUser, setCurrentUser } = useContext(UserContext)
+    const currentUser = useContext(UserContext)
     if (currentUser && currentUser.id){
     return (
     <div>

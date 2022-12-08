@@ -2,19 +2,19 @@ import React, { useState, useEffect, useMemo, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Navigate, useNavigate } from "react-router-dom";
-import { UserContext } from "./UserContext";
+import { UserContext } from './UserContext';
+import { UserDispatchContext } from "./UserContext";
 
 
 
 export default function SignIn(){
-    const { currentUser, setCurrentUser } = useContext(UserContext)
+    const currentUser = useContext(UserContext)
+    const setCurrentUser = useContext(UserDispatchContext)
     const [formState, setFormState] = useState({
         username: "",
         password: "",
     });
     const navigate = useNavigate();
-
-
 
     const handleChange = (e) => {
     setFormState({
@@ -33,7 +33,8 @@ export default function SignIn(){
       },
       body: JSON.stringify(formState),
     })
-      .then((r) => r.json()).then((r) => setCurrentUser(r)).then(navigate("/"))
+      .then((r) => r.json()).then((r) => setCurrentUser(r))
+      .then(navigate("/"))
   };
 
 
