@@ -4,7 +4,14 @@ export const UserContext = createContext([])
 export const UserDispatchContext = createContext([])
 
 function UserProvider({ children }){
-    const [currentUser, setCurrentUser] = useState("")
+    const [currentUser, setCurrentUser] = useState([])
+
+    useEffect(() => {
+        fetch("/me", {
+            withCredentials: "include"
+        }).then((res) => res.json()).then((user) => setCurrentUser(user))
+    }, [])
+
 
     return (
         <UserContext.Provider value={currentUser}>

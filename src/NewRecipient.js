@@ -15,22 +15,16 @@ export default function NewRecipient(){
         user_id: currentUser.id
     })
 
-    const newUserInfo = () => {
-        fetch("http://localhost:3000/me", {
-            withCredentials: "include",
-        }).then((res) => setCurrentUser(res))
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch("http://localhost:3000/recipients", {
+        fetch("/recipients", {
             method: "POST",
             withCredentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(formState)
-        })
+        }).then((res) => res.json()).then((user) => setCurrentUser(user))
     }
 
       const handleChange = (e) => {

@@ -29,14 +29,14 @@ export default function NewGift(recipient){
 
       const handleSubmit = (e) => {
         e.preventDefault()
-        fetch("http://localhost:3000/gifts", {
+        fetch("/gifts", {
             method: "POST",
             withCredentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(formState)
-        })
+        }).then((res) => res.json()).then((user) => setCurrentUser(user))
     }
 
     return <div>

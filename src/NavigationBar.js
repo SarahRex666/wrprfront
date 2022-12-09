@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from './UserContext';
+import { UserContext, UserDispatchContext } from './UserContext';
 
 function NavigationBar(){
     const currentUser = useContext(UserContext)

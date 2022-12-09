@@ -25,7 +25,7 @@ export default function SignIn(){
 
     const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/login", {
+    fetch("/login", {
       method: "POST",
       withCredentials: "include",
       headers: {

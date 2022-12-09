@@ -8,23 +8,23 @@ export default function GiftCard(){
     const setCurrentUser = useContext(UserDispatchContext)
 
     const handleClick = (gift) => {
-        fetch(`http://localhost:3000/gifts/${gift.id}`, {
+        fetch(`/gifts/${gift.id}`, {
             method: "DELETE",
             withCredentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
-        })
+        }).then((res) => res.json()).then((user) => setCurrentUser(user))
     }
 
         const deleteRecipient = (recipient) => {
-        fetch(`http://localhost:3000/recipients/${recipient.id}`, {
+        fetch(`/recipients/${recipient.id}`, {
             method: "DELETE",
             withCredentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
-        })
+        }).then((res) => res.json()).then((user) => setCurrentUser(user))
     }
 
 
