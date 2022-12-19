@@ -1,7 +1,7 @@
 import React, { useState, useMemo, createContext, useContext, useEffect, useCallback } from "react";
 import { UserContext, UserDispatchContext } from './UserContext';
 import NewGift from "./NewGift";
-import { Button } from "react-bootstrap";
+import { Button, Card, Accordion, ListGroup, Row, Col, Container } from "react-bootstrap";
 
 export default function GiftCard(){
     const currentUser = useContext(UserContext)
@@ -27,24 +27,57 @@ export default function GiftCard(){
         }).then((res) => res.json()).then((user) => setCurrentUser(user))
     }
 
+    console.log(currentUser.recipients)
 
-    return(<div>{currentUser.recipients.map((recipient) => (
-        <div key={recipient.id}>
-    <h1>{recipient.name}</h1>
-    <p>{recipient.relationship}</p>
-    <NewGift recipient={recipient}/>
-    <Button onClick={() => deleteRecipient(recipient)}>Delete Recipient</Button>
+
+    return(<Container>
+            <Row>
+                {currentUser.recipients.map((recipient) => (
+                <Col>
+        <div key={recipient.id} >
+            <Card style={{ width: '18rem' }}>
+    <Card.Body>
+    <Accordion>
+        <Accordion.Item eventKey="0">
+        <Accordion.Header>{recipient.name}</Accordion.Header>
+        <Accordion.Body>{recipient.relationship}</Accordion.Body>
+        <Accordion.Body>{recipient.priority}</Accordion.Body>
+        </Accordion.Item>
+    </Accordion>
+    <Accordion>
+        <Accordion.Item eventKey="1">
+            <Accordion.Header>Add New Gift</Accordion.Header>
+            <Accordion.Body>
+                <NewGift recipient={recipient}/>
+            </Accordion.Body>
+        </Accordion.Item>
+    </Accordion>
+    <Button className="mt-3" onClick={() => deleteRecipient(recipient)}>Delete Recipient</Button>
+    </Card.Body>
     {recipient.gifts.map((gift) => (
         <div key={gift.id}>
-            <p>{gift.name}</p>
-            <p>{gift.price}$</p>
-            <p>Bought: {gift.bought.toString()}</p>
-            <p>Wrapped: {gift.wrapped.toString()}</p>
-            <p>Made: {gift.made.toString()}</p>
+    <Accordion>
+        <Accordion.Item eventKey="2">
+            <Accordion.Header>Gifts:</Accordion.Header>
+            <Accordion.Body>
+            <ListGroup>
+            <ListGroup.Item>{gift.name}</ListGroup.Item>
+            <ListGroup.Item>{gift.price}$</ListGroup.Item>
+            <ListGroup.Item>Bought: {gift.bought.toString()}</ListGroup.Item>
+            <ListGroup.Item>Wrapped: {gift.wrapped.toString()}</ListGroup.Item>
+            <ListGroup.Item>Made: {gift.made.toString()}</ListGroup.Item>
             <Button onClick={() => handleClick(gift)}>Delete Gift</Button>
+            </ListGroup>
+            </Accordion.Body>
+            </Accordion.Item>
+    </Accordion>
             </div>
+
     ))}
+       </Card>
     </div>
+    </Col>
     ))}
-    </div>)
+    </Row>
+    </Container>)
 }

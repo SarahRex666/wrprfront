@@ -8,7 +8,7 @@ import SignUp from './SignUp';
 import Logout from './Logout';
 import Profile from './Profile';
 import Gifts from './Gifts';
-import React, { useState, useMemo, createContext, useContext, useEffect, useCallback } from "react";
+import React, { useState, createContext, useContext, useEffect, useCallback } from "react";
 import { UserProvider, UserContext, UserDispatchContext } from './UserContext';
 
 

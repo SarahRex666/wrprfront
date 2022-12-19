@@ -36,7 +36,7 @@ export default function NewGift(recipient){
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(formState)
-        }).then((res) => res.json()).then((user) => setCurrentUser(user))
+        }).then((res) => res.json()).then((user) => setCurrentUser(user)).then(setFormState(""))
     }
 
     return <div>
@@ -71,6 +71,7 @@ export default function NewGift(recipient){
                 placeholder="Price"></Form.Control>
                 <Form.Label>Priority:</Form.Label>
                 <Form.Select
+                id="priority"
                 value={formState.priority}
                 onChange={handleChange}>
                     <option value="0">0</option>
@@ -81,7 +82,7 @@ export default function NewGift(recipient){
                     <option value="5">5</option>
                 </Form.Select>
             </Form.Group>
-            <Button type="submit" id="submit" value="submit">Add New Gift</Button>
+            <Button className="mt-3" type="submit" id="submit" value="submit">Add New Gift</Button>
         </Form>
         </div>
     </div>

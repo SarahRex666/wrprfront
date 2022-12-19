@@ -1,11 +1,9 @@
-import React, { useState, useMemo, createContext, useContext, useEffect, useCallback } from "react";
-import { UserContext } from './UserContext';
+import React, { useState, createContext, useContext, useEffect, useCallback } from "react";
+import { UserContext, UserDispatchContext } from './UserContext';
 
 export default function Profile(){
     const currentUser = useContext(UserContext)
 
-    console.log(currentUser)
 
-
-    return <div>{currentUser.first_name}</div>
+    return (<div>{currentUser.first_name}</div>)
 }

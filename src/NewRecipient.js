@@ -15,6 +15,8 @@ export default function NewRecipient(){
         user_id: currentUser.id
     })
 
+    console.log(formState)
+
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch("/recipients", {
@@ -25,6 +27,7 @@ export default function NewRecipient(){
             },
             body: JSON.stringify(formState)
         }).then((res) => res.json()).then((user) => setCurrentUser(user))
+        setFormState("")
     }
 
       const handleChange = (e) => {
@@ -36,7 +39,7 @@ export default function NewRecipient(){
 
     return (
         <div>
-        <Form className="container" onSubmit={handleSubmit}>
+        <Form className="container my-3" onSubmit={handleSubmit}>
             <Form.Group>
                 <Form.Control 
                 type="text"
@@ -51,10 +54,11 @@ export default function NewRecipient(){
                 value={formState.relationship}
                 onChange={handleChange}
                 placeholder="Relationship"></Form.Control>
-                <Form.Label>Priority:</Form.Label>
                 <Form.Select
+                id="priority"
                 value={formState.priority}
                 onChange={handleChange}>
+                    <option>Priority</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -63,7 +67,7 @@ export default function NewRecipient(){
                     <option value="5">5</option>
                 </Form.Select>
             </Form.Group>
-            <Button type="submit" id="submit" value="submit">Add New Recipient</Button>
+            <Button className="mt-2" type="submit" id="submit" value="submit">Add New Recipient</Button>
         </Form>
         </div>
     )
